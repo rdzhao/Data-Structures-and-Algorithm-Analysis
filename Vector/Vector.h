@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <new>
 
+using namespace std;
+
 namespace DSAA
 {
 	const int SPARE_CAPACITY = 100;
@@ -35,10 +37,8 @@ namespace DSAA
 		// copy assignment
 		Vector& operator= (const Vector& rhs)
 		{
-			Vector&& copy = Vector(rhs);
-			this->_size = copy._size;
-			this->_capacity = copy._capacity;
-			this->_objects = copy._objects;
+			Vector copy = rhs;
+			std::swap(*this, copy);
 
 			std::cout << "In copy assignment" << std::endl;
 
@@ -76,6 +76,37 @@ namespace DSAA
 			return *this;
 		}
 
+		void resize(int newSize)
+		{
+			if (newSize > theCapacity)
+				reserve(newSize * 2);
+			_size = newSize;
+			
+		}
+
+		void reserve(int newCapacity)
+		{
+			if (newCapacity < _size)
+				return;
+
+			Object* newArray = new Object[newCapacity];
+			for (int k = 0; k < _size; ++k)
+				newArray[k] = std::move(object[k]);
+
+			_capacity = newCapacity;
+			std::swap(_objects, newArray);
+			delete[] newArray;
+		}
+
+		int size() const
+		{
+			return _size;
+		}
+
+		int capacity() const
+		{
+			return _capacity;
+		}
 
 	private:
 		int _size;

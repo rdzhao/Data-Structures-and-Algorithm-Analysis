@@ -2,8 +2,10 @@
 
 int main(int argc, char* argv[])
 {
+	cout << "Test the big five ..." << endl;
+
 	std::cout << "Test default constructor..."<< std::endl;
-	DSAA::Vector<int> v;
+	DSAA::Vector<int> v(5);
 	std::cout << std::endl;
 
 	std::cout << "Test copy constructor..." << std::endl;
@@ -24,6 +26,17 @@ int main(int argc, char* argv[])
 	DSAA::Vector<int> y;
 	y = DSAA::Vector<int>();
 	std::cout << std::endl;
+
+
+	cout << endl;
+	cout << endl;
+	cout << endl;
+
+	cout << "Test reserve(), resize() ..."<< endl;
+	DSAA::Vector<int> vec(100);
+	cout << "Capacity: " << vec.capacity() << endl;
+	cout << "Size: " << vec.size() << endl;
+
 
 	return 1;
 }
